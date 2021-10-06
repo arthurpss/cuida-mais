@@ -35,7 +35,7 @@ public class PacienteController {
     }
 
     @PutMapping("/{cpf}")
-    public ResponseEntity update(@PathVariable("cpf") String cpf, @RequestBody Paciente novoPaciente) {
+    public ResponseEntity update(@PathVariable String cpf, @RequestBody Paciente novoPaciente) {
         return pacienteRepository.findByCpf(cpf)
                 .map(paciente -> {
                     paciente.setAtivo(novoPaciente.getAtivo());
@@ -58,7 +58,7 @@ public class PacienteController {
     }
 
     @PutMapping("/{cpf}/ativo")
-    public ResponseEntity updateAtivo(@PathVariable("cpf") String cpf, @RequestBody Boolean ativo) {
+    public ResponseEntity updateAtivo(@PathVariable String cpf, @RequestBody Boolean ativo) {
         return pacienteRepository.findByCpf(cpf)
                 .map(paciente -> {
                     paciente.setAtivo(ativo);

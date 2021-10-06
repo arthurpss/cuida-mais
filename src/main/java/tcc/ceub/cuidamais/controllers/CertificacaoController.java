@@ -42,7 +42,7 @@ public class CertificacaoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity update(@PathVariable("id") Long id, @RequestBody Certificacao novaCertificacao) {
+    public ResponseEntity update(@PathVariable Long id, @RequestBody Certificacao novaCertificacao) {
         return certificacaoRepository.findById(id)
                 .map(certificacao -> {
                     certificacao.setCarga_horaria(novaCertificacao.getCarga_horaria());

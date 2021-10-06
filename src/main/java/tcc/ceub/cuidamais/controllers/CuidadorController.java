@@ -35,7 +35,7 @@ public class CuidadorController {
     }
 
     @PutMapping("/{cpf}")
-    public ResponseEntity update(@PathVariable("cpf") String cpf, @RequestBody Cuidador novoCuidador) {
+    public ResponseEntity update(@PathVariable String cpf, @RequestBody Cuidador novoCuidador) {
         return cuidadorRepository.findByCpf(cpf)
                 .map(cuidador -> {
                     cuidador.setAtivo(novoCuidador.getAtivo());
@@ -59,7 +59,7 @@ public class CuidadorController {
     }
 
     @PutMapping("/{cpf}/ativo")
-    public ResponseEntity updateAtivo(@PathVariable("cpf") String cpf, @RequestBody Boolean ativo) {
+    public ResponseEntity updateAtivo(@PathVariable String cpf, @RequestBody Boolean ativo) {
         return cuidadorRepository.findByCpf(cpf)
                 .map(cuidador -> {
                     cuidador.setAtivo(ativo);
@@ -69,7 +69,7 @@ public class CuidadorController {
     }
 
     @PutMapping("/{cpf}/pontuacao")
-    public ResponseEntity updatePontuacao(@PathVariable("cpf") String cpf, @RequestBody Integer pontuacao) {
+    public ResponseEntity updatePontuacao(@PathVariable String cpf, @RequestBody Integer pontuacao) {
         return cuidadorRepository.findByCpf(cpf)
                 .map(cuidador -> {
                     cuidador.setPontuacao(pontuacao);

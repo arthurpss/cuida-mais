@@ -51,7 +51,7 @@ public class DispositivoController {
                 }).orElse(ResponseEntity.notFound().build());
     }
 
-    @DeleteMapping
+    @DeleteMapping("/{id}")
     public ResponseEntity delete(@PathVariable Long id) {
         return dispositivoRepository.findById(id)
                 .map(dispositivo -> {
