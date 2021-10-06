@@ -48,7 +48,7 @@ public class Cuidador {
     @Min(message = "Não pode ser menor que zero", value = 0)
     @Column(name = "pontuacao")
     private Integer pontuacao;
-    
+
     @NotNull(message = "O campo sexo não pode ser nulo")
     @Column(name = "sexo", nullable = false, length = 1)
     private String sexo;
@@ -64,4 +64,22 @@ public class Cuidador {
 
     @Column(name = "telefone", unique = true, length = 12)
     private String telefone;
+
+    @Column(name = "objetivo", nullable = false)
+    private String objetivo;
+
+    @Column(name = "resumo", nullable = false)
+    private String resumo;
+
+    @Column(name = "cep", nullable = false, unique = true, length = 8)
+    private String cep;
+
+    @Column(name = "uf", nullable = false, length = 2)
+    private String uf;
+
+    @Column(name = "cidade", nullable = false, length = 100)
+    private String cidade;
+
+    @Column(name = "logradouro", nullable = false)
+    private String logradouro;
 }

@@ -57,4 +57,22 @@ public class Paciente {
 
     @Column(name = "telefone", unique = true, length = 12)
     private String telefone;
+
+    @Column(name = "resumo", nullable = false)
+    private String resumo;
+
+    @Column(name = "observacoes")
+    private String observacoes;
+
+    @Column(name = "cep", nullable = false, unique = true, length = 8)
+    private String cep;
+
+    @Column(name = "uf", nullable = false, length = 2)
+    private String uf;
+
+    @Column(name = "cidade", nullable = false, length = 100)
+    private String cidade;
+
+    @Column(name = "logradouro", nullable = false)
+    private String logradouro;
 }

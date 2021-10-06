@@ -23,8 +23,7 @@ public class Comorbidade {
     @Column(name = "cuidados")
     private String cuidados;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "prontuario_id")
-    private Prontuario prontuario;
-
+    @ManyToOne
+    @JoinColumn(name = "paciente_cpf")
+    private Paciente paciente;
 }

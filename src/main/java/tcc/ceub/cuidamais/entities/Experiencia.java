@@ -36,8 +36,8 @@ public class Experiencia {
     @Column(name = "atual", nullable = false)
     private Boolean atual = false;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "curriculo_id")
-    private Curriculo curriculo;
+    @ManyToOne
+    @JoinColumn(name = "cuidador_cpf")
+    private Cuidador cuidador;
 
 }

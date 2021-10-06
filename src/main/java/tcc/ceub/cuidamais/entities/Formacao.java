@@ -24,7 +24,7 @@ public class Formacao {
     @Column(name = "curso", nullable = false)
     private String curso;
 
-//    M - Matutino, V - Vepertino, N - Noturno, I - Integral
+    //    M - Matutino, V - Vepertino, N - Noturno, I - Integral
     @Column(name = "periodo", nullable = false, length = 1)
     private String periodo;
 
@@ -37,8 +37,8 @@ public class Formacao {
     @Column(name = "em_andamento", nullable = false)
     private Boolean em_andamento = false;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "curriculo_id")
-    private Curriculo curriculo;
+    @ManyToOne
+    @JoinColumn(name = "cuidador_cpf")
+    private Cuidador cuidador;
 
 }

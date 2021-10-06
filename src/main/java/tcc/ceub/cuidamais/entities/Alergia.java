@@ -23,8 +23,7 @@ public class Alergia {
     @Column(name = "grau", nullable = false)
     private Integer grau;
 
-    @ManyToOne(cascade = CascadeType.REMOVE, optional = false)
-    @JoinColumn(name = "prontuario_id", nullable = false)
-    private Prontuario prontuario;
-
+    @ManyToOne
+    @JoinColumn(name = "paciente_cpf")
+    private Paciente paciente;
 }

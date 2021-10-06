@@ -47,6 +47,12 @@ public class CuidadorController {
                     cuidador.setCelular(novoCuidador.getCelular());
                     cuidador.setEmail(novoCuidador.getEmail());
                     cuidador.setTelefone(novoCuidador.getTelefone());
+                    cuidador.setResumo(novoCuidador.getResumo());
+                    cuidador.setObjetivo(novoCuidador.getObjetivo());
+                    cuidador.setCep(novoCuidador.getCep());
+                    cuidador.setUf(novoCuidador.getUf());
+                    cuidador.setCidade(novoCuidador.getCidade());
+                    cuidador.setLogradouro(novoCuidador.getLogradouro());
                     Cuidador cuidadorAtualizado = cuidadorRepository.save(cuidador);
                     return ResponseEntity.ok().body(cuidadorAtualizado);
                 }).orElse(ResponseEntity.notFound().build());
@@ -72,7 +78,7 @@ public class CuidadorController {
                 }).orElse(ResponseEntity.notFound().build());
     }
 
-    @DeleteMapping("{cpf}")
+    @DeleteMapping("/{cpf}")
     public ResponseEntity delete(@PathVariable String cpf) {
         return cuidadorRepository.findByCpf(cpf)
                 .map(cuidador -> {

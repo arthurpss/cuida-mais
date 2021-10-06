@@ -28,7 +28,7 @@ public class PacienteController {
     public Optional<Paciente> getPacienteByCpf(@PathVariable String cpf) {
         return pacienteRepository.findByCpf(cpf);
     }
-
+    
     @PostMapping
     public Paciente create(@RequestBody Paciente paciente) {
         return pacienteRepository.save(paciente);
@@ -46,6 +46,12 @@ public class PacienteController {
                     paciente.setCelular(novoPaciente.getCelular());
                     paciente.setEmail(novoPaciente.getEmail());
                     paciente.setTelefone(novoPaciente.getTelefone());
+                    paciente.setResumo(novoPaciente.getResumo());
+                    paciente.setObservacoes(novoPaciente.getObservacoes());
+                    paciente.setCep(novoPaciente.getCep());
+                    paciente.setUf(novoPaciente.getUf());
+                    paciente.setCidade(novoPaciente.getCidade());
+                    paciente.setLogradouro(novoPaciente.getLogradouro());
                     Paciente pacienteAtualizado = pacienteRepository.save(paciente);
                     return ResponseEntity.ok().body(pacienteAtualizado);
                 }).orElse(ResponseEntity.notFound().build());
@@ -61,7 +67,7 @@ public class PacienteController {
                 }).orElse(ResponseEntity.notFound().build());
     }
 
-    @DeleteMapping("{cpf}")
+    @DeleteMapping("/{cpf}")
     public ResponseEntity delete(@PathVariable String cpf) {
         return pacienteRepository.findByCpf(cpf)
                 .map(paciente -> {

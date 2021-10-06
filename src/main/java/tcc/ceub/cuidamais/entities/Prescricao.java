@@ -26,8 +26,7 @@ public class Prescricao {
     @Column(name = "via", nullable = false, length = 1)
     private String via;
 
-    @ManyToOne(cascade = CascadeType.REMOVE, optional = false)
-    @JoinColumn(name = "prontuario_id", nullable = false)
-    private Prontuario prontuario;
-
+    @ManyToOne
+    @JoinColumn(name = "paciente_cpf")
+    private Paciente paciente;
 }

@@ -26,8 +26,8 @@ public class Certificacao {
     @Column(name = "carga_horaria")
     private Integer carga_horaria;
 
-    @ManyToOne(cascade = CascadeType.REMOVE, optional = false)
-    @JoinColumn(name = "curriculo_id", nullable = false)
-    private Curriculo curriculo;
+    @ManyToOne
+    @JoinColumn(name = "cuidador_cpf")
+    private Cuidador cuidador;
 
 }
