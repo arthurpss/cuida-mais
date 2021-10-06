@@ -28,7 +28,7 @@ public class PacienteController {
     public Optional<Paciente> getPacienteByCpf(@PathVariable String cpf) {
         return pacienteRepository.findByCpf(cpf);
     }
-    
+
     @PostMapping
     public Paciente create(@RequestBody Paciente paciente) {
         return pacienteRepository.save(paciente);
