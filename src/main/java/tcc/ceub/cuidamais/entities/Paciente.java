@@ -64,15 +64,19 @@ public class Paciente {
     @Column(name = "observacoes")
     private String observacoes;
 
+    @NotNull(message = "CEP não pode ser nulo")
     @Column(name = "cep", nullable = false, unique = true, length = 8)
     private String cep;
 
+    @NotNull(message = "UF não pode ser nulo")
     @Column(name = "uf", nullable = false, length = 2)
     private String uf;
 
+    @NotNull(message = "Cidade não pode ser nula")
     @Column(name = "cidade", nullable = false, length = 100)
     private String cidade;
 
+    @NotNull(message = "Logradouro não pode ser nulo")
     @Column(name = "logradouro", nullable = false)
     private String logradouro;
 }
