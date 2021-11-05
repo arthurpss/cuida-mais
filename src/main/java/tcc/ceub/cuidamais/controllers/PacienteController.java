@@ -1,6 +1,8 @@
 package tcc.ceub.cuidamais.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import tcc.ceub.cuidamais.entities.Paciente;
 import tcc.ceub.cuidamais.repositories.PacienteRepository;
@@ -14,6 +16,8 @@ public class PacienteController {
 
     final
     PacienteRepository pacienteRepository;
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     public PacienteController(PacienteRepository pacienteRepository) {
         this.pacienteRepository = pacienteRepository;
@@ -31,11 +35,12 @@ public class PacienteController {
 
     @PostMapping
     public Paciente create(@RequestBody Paciente paciente) {
+        paciente.setSenha(passwordEncoder.encode(paciente.getSenha()));
         return pacienteRepository.save(paciente);
     }
 
     @PutMapping("/{cpf}")
-    public ResponseEntity update(@PathVariable String cpf, @RequestBody Paciente novoPaciente) {
+    public ResponseEntity<Paciente> update(@PathVariable String cpf, @RequestBody Paciente novoPaciente) {
         return pacienteRepository.findByCpf(cpf)
                 .map(paciente -> {
                     paciente.setAtivo(novoPaciente.getAtivo());
@@ -58,7 +63,7 @@ public class PacienteController {
     }
 
     @PutMapping("/{cpf}/ativo")
-    public ResponseEntity updateAtivo(@PathVariable String cpf, @RequestBody Boolean ativo) {
+    public ResponseEntity<Paciente> updateAtivo(@PathVariable String cpf, @RequestBody Boolean ativo) {
         return pacienteRepository.findByCpf(cpf)
                 .map(paciente -> {
                     paciente.setAtivo(ativo);
@@ -68,7 +73,7 @@ public class PacienteController {
     }
 
     @DeleteMapping("/{cpf}")
-    public ResponseEntity delete(@PathVariable String cpf) {
+    public ResponseEntity delete(@PathVariable("cpf") String cpf) {
         return pacienteRepository.findByCpf(cpf)
                 .map(paciente -> {
                     pacienteRepository.deleteById(cpf);

@@ -3,6 +3,7 @@ package tcc.ceub.cuidamais.entities;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,7 +20,7 @@ import java.sql.Date;
 @Getter
 @Setter
 @ToString
-public class Cuidador {
+public class Cuidador implements GrantedAuthority {
     @NotNull(message = "CPF não pode ser nulo")
     @Id
     @Column(name = "cpf", nullable = false, length = 11)
@@ -86,4 +87,5 @@ public class Cuidador {
     @NotNull(message = "Logradouro não pode ser nulo")
     @Column(name = "logradouro", nullable = false)
     private String logradouro;
+    
 }
