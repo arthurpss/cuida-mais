@@ -87,5 +87,9 @@ public class Cuidador implements GrantedAuthority {
     @NotNull(message = "Logradouro não pode ser nulo")
     @Column(name = "logradouro", nullable = false)
     private String logradouro;
-    
+
+    @Override
+    public String getAuthority() {
+        return "USER_ROLE";
+    }
 }

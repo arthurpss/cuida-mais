@@ -1,6 +1,5 @@
 package tcc.ceub.cuidamais.controllers;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
@@ -16,11 +15,12 @@ public class PacienteController {
 
     final
     PacienteRepository pacienteRepository;
-    @Autowired
+    final
     PasswordEncoder passwordEncoder;
 
-    public PacienteController(PacienteRepository pacienteRepository) {
+    public PacienteController(PacienteRepository pacienteRepository, PasswordEncoder passwordEncoder) {
         this.pacienteRepository = pacienteRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping("/ativos")

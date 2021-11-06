@@ -15,17 +15,17 @@ import tcc.ceub.cuidamais.dto.TokenDTO;
 import tcc.ceub.cuidamais.services.TokenService;
 
 @RestController
-@RequestMapping("/autenticacao")
+@RequestMapping("/auth")
 public class AutenticacaoController {
     @Autowired
-    private AuthenticationManager authenticationManager;
+    AuthenticationManager authenticationManager;
 
     @Autowired
-    private TokenService tokenService;
+    TokenService tokenService;
 
-    @PostMapping("/login")
+    @PostMapping
     public ResponseEntity<TokenDTO> auth(@RequestBody @Validated LoginDTO loginDTO) {
-        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(loginDTO.getUsuario(), loginDTO.getSenha());
+        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(loginDTO.getCpf_cnpj(), loginDTO.getSenha());
 
         Authentication authentication = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
         String token = tokenService.generateToken(authentication);

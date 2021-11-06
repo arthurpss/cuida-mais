@@ -11,33 +11,32 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import tcc.ceub.cuidamais.filter.TokenAuthenticationFilter;
 import tcc.ceub.cuidamais.repositories.CuidadorRepository;
 import tcc.ceub.cuidamais.repositories.PacienteRepository;
-import tcc.ceub.cuidamais.repositories.UsuarioRepository;
 import tcc.ceub.cuidamais.services.AutenticacaoService;
 import tcc.ceub.cuidamais.services.TokenService;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-
-    @Autowired
+    final
     CuidadorRepository cuidadorRepository;
-    @Autowired
+    final
     PacienteRepository pacienteRepository;
+    
     @Autowired
-    private UserDetailsService userDetailsService;
+    AutenticacaoService autenticacaoService;
     @Autowired
-    private AutenticacaoService autenticacaoService;
-    @Autowired
-    private UsuarioRepository repository;
-    @Autowired
-    private TokenService tokenService;
+    TokenService tokenService;
+
+    public WebSecurityConfig(CuidadorRepository cuidadorRepository, PacienteRepository pacienteRepository) {
+        this.cuidadorRepository = cuidadorRepository;
+        this.pacienteRepository = pacienteRepository;
+    }
 
     @Override
     @Bean
@@ -45,24 +44,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManager();
     }
 
-    //    @Bean
-//    public UserDetailsService userDetailsService() {
-//        return super.userDetailsService();
-//    }
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(autenticacaoService).passwordEncoder(passwordEncoder());
-//        auth.authenticationProvider(authProvider());
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/autenticacao/login").permitAll()
+                .antMatchers(HttpMethod.POST, "/auth", "/paciente", "/cuidador").permitAll()
                 .anyRequest().authenticated()
                 .and().csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and().addFilterBefore(new TokenAuthenticationFilter(tokenService, repository, pacienteRepository, cuidadorRepository), UsernamePasswordAuthenticationFilter.class);
+                .and().addFilterBefore(new TokenAuthenticationFilter(tokenService, pacienteRepository, cuidadorRepository), UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override
@@ -70,20 +64,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 
-    //    @Bean
-//    public DaoAuthenticationProvider authProvider() {
-//        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-//        authProvider.setUserDetailsService(userDetailsService);
-//        authProvider.setPasswordEncoder(passwordEncoder());
-//        return authProvider;
-//    }
-//Configuration for static resources
-
-
+    //Configuration for static resources
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
 
 }

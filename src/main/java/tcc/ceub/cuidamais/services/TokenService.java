@@ -6,7 +6,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
-import tcc.ceub.cuidamais.entities.Usuario;
+import tcc.ceub.cuidamais.Usuario;
 
 import java.util.Date;
 
@@ -19,13 +19,12 @@ public class TokenService {
     private String secret;
 
     public String generateToken(Authentication authentication) {
-
         Usuario usuario = (Usuario) authentication.getPrincipal();
 
         Date now = new Date();
         Date exp = new Date(now.getTime() + Long.parseLong(expiration));
 
-        return Jwts.builder().setIssuer("IRS").setSubject(usuario.getId().toString()).setIssuedAt(new Date())
+        return Jwts.builder().setIssuer("cuida-mais").setSubject(usuario.getUsername()).setIssuedAt(new Date())
                 .setExpiration(exp).signWith(SignatureAlgorithm.HS256, secret).compact();
     }
 

@@ -5,24 +5,28 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import tcc.ceub.cuidamais.entities.Usuario;
-import tcc.ceub.cuidamais.repositories.UsuarioRepository;
-
-import java.util.Optional;
+import tcc.ceub.cuidamais.Usuario;
+import tcc.ceub.cuidamais.dto.LoginDTO;
+import tcc.ceub.cuidamais.repositories.CuidadorRepository;
+import tcc.ceub.cuidamais.repositories.PacienteRepository;
 
 @Service
 public class AutenticacaoService implements UserDetailsService {
     @Autowired
-    private UsuarioRepository repository;
+    CuidadorRepository cuidadorRepository;
+
+    @Autowired
+    PacienteRepository pacienteRepository;
 
     @Override
     public UserDetails loadUserByUsername(String cpf_cnpj) throws UsernameNotFoundException {
-        Optional<Usuario> optional = repository.findByCpfCnpj(cpf_cnpj);
 
-        if (optional.isPresent()) {
-            return optional.get();
+        UsuarioService usuarioService = new UsuarioService(pacienteRepository, cuidadorRepository);
+        try {
+            LoginDTO login = usuarioService.getLogin(cpf_cnpj);
+            return new Usuario(login);
+        } catch (UsernameNotFoundException e) {
+            throw e;
         }
-
-        throw new UsernameNotFoundException("Usuário não encontrado");
     }
 }
