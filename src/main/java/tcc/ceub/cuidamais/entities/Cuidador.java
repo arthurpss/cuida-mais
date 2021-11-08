@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,13 +16,15 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.sql.Date;
+import java.util.Collection;
+import java.util.List;
 
 @Table(name = "cuidador")
 @Entity
 @Getter
 @Setter
 @ToString
-public class Cuidador implements GrantedAuthority {
+public class Cuidador implements UserDetails {
     @NotNull(message = "CPF não pode ser nulo")
     @Id
     @Column(name = "cpf", nullable = false, length = 11)
@@ -88,8 +92,43 @@ public class Cuidador implements GrantedAuthority {
     @Column(name = "logradouro", nullable = false)
     private String logradouro;
 
-    @Override
+    /*@Override
     public String getAuthority() {
         return "USER_ROLE";
+    }*/
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority("ROLE_CUIDADOR"));
+    }
+
+    @Override
+    public String getPassword() {
+        return senha;
+    }
+
+    @Override
+    public String getUsername() {
+        return cpf;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return ativo;
     }
 }

@@ -17,8 +17,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import tcc.ceub.cuidamais.filter.TokenAuthenticationFilter;
 import tcc.ceub.cuidamais.repositories.CuidadorRepository;
 import tcc.ceub.cuidamais.repositories.PacienteRepository;
-import tcc.ceub.cuidamais.services.AutenticacaoService;
 import tcc.ceub.cuidamais.services.TokenService;
+import tcc.ceub.cuidamais.services.UsuarioService;
 
 @Configuration
 @EnableWebSecurity
@@ -27,9 +27,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     CuidadorRepository cuidadorRepository;
     final
     PacienteRepository pacienteRepository;
-    
+
+    /*@Autowired
+    AutenticacaoService autenticacaoService;*/
     @Autowired
-    AutenticacaoService autenticacaoService;
+    UsuarioService usuarioService;
     @Autowired
     TokenService tokenService;
 
@@ -46,7 +48,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(autenticacaoService).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(usuarioService).passwordEncoder(passwordEncoder());
+//        auth.userDetailsService(autenticacaoService).passwordEncoder(passwordEncoder());
     }
 
     @Override

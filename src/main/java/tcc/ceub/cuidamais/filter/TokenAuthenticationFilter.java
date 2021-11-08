@@ -44,16 +44,16 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
     }
 
     private void authenticate(String tokenFromHeader) {
-        Integer id = tokenService.getTokenId(tokenFromHeader);
-        Optional<Cuidador> optionalCuidador = cuidadorRepository.findByCpf(id.toString());
-        Optional<Paciente> optionalPaciente = pacienteRepository.findByCpf(id.toString());
+        String id = tokenService.getTokenId(tokenFromHeader);
+        Optional<Cuidador> optionalCuidador = cuidadorRepository.findByCpf(id);
+        Optional<Paciente> optionalPaciente = pacienteRepository.findByCpf(id);
         if (optionalCuidador.isPresent()) {
             Cuidador cuidador = optionalCuidador.get();
-            UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(cuidador, cuidador.getSenha());
+            UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(cuidador, cuidador.getSenha(), cuidador.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
         } else if (optionalPaciente.isPresent()) {
             Paciente paciente = optionalPaciente.get();
-            UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(paciente, paciente.getSenha());
+            UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(paciente, paciente.getSenha(), paciente.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
         }
     }

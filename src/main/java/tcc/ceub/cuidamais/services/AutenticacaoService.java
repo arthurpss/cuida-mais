@@ -1,3 +1,4 @@
+/*
 package tcc.ceub.cuidamais.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,4 +30,4 @@ public class AutenticacaoService implements UserDetailsService {
             throw e;
         }
     }
-}
+}*/
