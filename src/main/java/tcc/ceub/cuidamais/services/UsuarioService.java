@@ -24,20 +24,6 @@ public class UsuarioService implements UserDetailsService {
         this.cuidadorRepository = cuidadorRepository;
     }
 
-    /*public LoginDTO getLogin(String cpf_cnpj) throws UsernameNotFoundException {
-        Optional<Paciente> pacienteOptional = pacienteRepository.findByCpf(cpf_cnpj);
-        Optional<Cuidador> cuidadorOptional = cuidadorRepository.findByCpf(cpf_cnpj);
-        if (pacienteOptional.isPresent()) {
-            Paciente paciente = pacienteOptional.get();
-            return new LoginDTO(paciente.getCpf(), paciente.getSenha(), paciente.getAtivo());
-        } else if (cuidadorOptional.isPresent()) {
-            Cuidador cuidador = cuidadorOptional.get();
-            return new LoginDTO(cuidador.getCpf(), cuidador.getSenha(), cuidador.getAtivo());
-        } else {
-            throw new UsernameNotFoundException("Usuário não encontrado: " + cpf_cnpj);
-        }
-    }*/
-
     @Override
     public UserDetails loadUserByUsername(String cpf_cnpj) throws UsernameNotFoundException {
 
@@ -45,20 +31,10 @@ public class UsuarioService implements UserDetailsService {
         Optional<Cuidador> cuidadorOptional = cuidadorRepository.findByCpf(cpf_cnpj);
         if (pacienteOptional.isPresent()) {
             return pacienteOptional.get();
-//            return new LoginDTO(paciente.getCpf(), paciente.getSenha(), paciente.getAtivo());
         } else if (cuidadorOptional.isPresent()) {
             return cuidadorOptional.get();
-//            return new LoginDTO(cuidador.getCpf(), cuidador.getSenha(), cuidador.getAtivo());
         } else {
             throw new UsernameNotFoundException("Usuário não encontrado: " + cpf_cnpj);
         }
-
-        /*UsuarioService usuarioService = new UsuarioService(pacienteRepository, cuidadorRepository);
-        try {
-            LoginDTO login = usuarioService.getLogin(cpf_cnpj);
-            return new Usuario(login);
-        } catch (UsernameNotFoundException e) {
-            throw e;
-        }*/
     }
 }

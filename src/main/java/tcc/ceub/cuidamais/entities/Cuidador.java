@@ -92,11 +92,6 @@ public class Cuidador implements UserDetails {
     @Column(name = "logradouro", nullable = false)
     private String logradouro;
 
-    /*@Override
-    public String getAuthority() {
-        return "USER_ROLE";
-    }*/
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("ROLE_CUIDADOR"));
