@@ -70,7 +70,7 @@ public class Paciente implements UserDetails {
     private String observacoes;
 
     @NotNull(message = "CEP não pode ser nulo")
-    @Column(name = "cep", nullable = false, unique = true, length = 8)
+    @Column(name = "cep", nullable = false, length = 8)
     private String cep;
 
     @NotNull(message = "UF não pode ser nulo")
@@ -84,7 +84,15 @@ public class Paciente implements UserDetails {
     @NotNull(message = "Logradouro não pode ser nulo")
     @Column(name = "logradouro", nullable = false)
     private String logradouro;
-    
+
+    @NotNull(message = "Latitude não pode ser nula")
+    @Column(name = "latitude", nullable = false)
+    private String latitude;
+
+    @NotNull(message = "Longitude não pode ser nula")
+    @Column(name = "longitude", nullable = false)
+    private String longitude;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("ROLE_PACIENTE"));

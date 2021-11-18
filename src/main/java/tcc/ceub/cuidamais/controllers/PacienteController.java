@@ -57,6 +57,8 @@ public class PacienteController {
                     paciente.setUf(novoPaciente.getUf());
                     paciente.setCidade(novoPaciente.getCidade());
                     paciente.setLogradouro(novoPaciente.getLogradouro());
+                    paciente.setLatitude(novoPaciente.getLatitude());
+                    paciente.setLongitude(novoPaciente.getLongitude());
                     Paciente pacienteAtualizado = pacienteRepository.save(paciente);
                     return ResponseEntity.ok().body(pacienteAtualizado);
                 }).orElse(ResponseEntity.notFound().build());

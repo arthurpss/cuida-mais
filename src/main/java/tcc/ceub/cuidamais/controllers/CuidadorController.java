@@ -53,6 +53,8 @@ public class CuidadorController {
                     cuidador.setUf(novoCuidador.getUf());
                     cuidador.setCidade(novoCuidador.getCidade());
                     cuidador.setLogradouro(novoCuidador.getLogradouro());
+                    cuidador.setLongitude(novoCuidador.getLongitude());
+                    cuidador.setLatitude(novoCuidador.getLatitude());
                     Cuidador cuidadorAtualizado = cuidadorRepository.save(cuidador);
                     return ResponseEntity.ok().body(cuidadorAtualizado);
                 }).orElse(ResponseEntity.notFound().build());

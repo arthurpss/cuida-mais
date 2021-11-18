@@ -60,6 +60,8 @@ CREATE TABLE cuidador
     uf              VARCHAR(2)   NOT NULL,
     cidade          VARCHAR(100) NOT NULL,
     logradouro      VARCHAR(255) NOT NULL,
+    latitude        VARCHAR(255) NOT NULL,
+    longitude       VARCHAR(255) NOT NULL,
     CONSTRAINT pk_cuidador PRIMARY KEY (cpf)
 );
 
@@ -116,6 +118,8 @@ CREATE TABLE paciente
     uf              VARCHAR(2)   NOT NULL,
     cidade          VARCHAR(100) NOT NULL,
     logradouro      VARCHAR(255) NOT NULL,
+    latitude        VARCHAR(255) NOT NULL,
+    longitude       VARCHAR(255) NOT NULL,
     CONSTRAINT pk_paciente PRIMARY KEY (cpf)
 );
 
@@ -133,9 +137,6 @@ ALTER TABLE cuidador
     ADD CONSTRAINT uc_cuidador_celular UNIQUE (celular);
 
 ALTER TABLE cuidador
-    ADD CONSTRAINT uc_cuidador_cep UNIQUE (cep);
-
-ALTER TABLE cuidador
     ADD CONSTRAINT uc_cuidador_email UNIQUE (email);
 
 ALTER TABLE cuidador
@@ -143,9 +144,6 @@ ALTER TABLE cuidador
 
 ALTER TABLE paciente
     ADD CONSTRAINT uc_paciente_celular UNIQUE (celular);
-
-ALTER TABLE paciente
-    ADD CONSTRAINT uc_paciente_cep UNIQUE (cep);
 
 ALTER TABLE paciente
     ADD CONSTRAINT uc_paciente_email UNIQUE (email);
