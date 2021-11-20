@@ -6,7 +6,12 @@ import org.springframework.web.bind.annotation.*;
 import tcc.ceub.cuidamais.entities.Paciente;
 import tcc.ceub.cuidamais.repositories.PacienteRepository;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 @RestController
@@ -35,6 +40,9 @@ public class PacienteController {
 
     @PostMapping
     public Paciente create(@RequestBody Paciente paciente) {
+        LocalDateTime ldt = LocalDateTime.now();
+        paciente.setData_cadastro(Date.valueOf(DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH).format(ldt)));
+        paciente.setData_nascimento(Date.valueOf(new SimpleDateFormat("yyyy-MM-dd").format(paciente.getData_nascimento())));
         paciente.setSenha(passwordEncoder.encode(paciente.getSenha()));
         return pacienteRepository.save(paciente);
     }
@@ -51,7 +59,7 @@ public class PacienteController {
                     paciente.setCelular(novoPaciente.getCelular());
                     paciente.setEmail(novoPaciente.getEmail());
                     paciente.setTelefone(novoPaciente.getTelefone());
-                    paciente.setResumo(novoPaciente.getResumo());
+//                    paciente.setResumo(novoPaciente.getResumo());
                     paciente.setObservacoes(novoPaciente.getObservacoes());
                     paciente.setCep(novoPaciente.getCep());
                     paciente.setUf(novoPaciente.getUf());

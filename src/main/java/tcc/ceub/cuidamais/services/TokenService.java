@@ -24,7 +24,6 @@ public class TokenService {
         Date now = new Date();
         Date exp = new Date(now.getTime() + Long.parseLong(expiration));
 
-
         if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_PACIENTE"))) {
             Paciente paciente = (Paciente) authentication.getPrincipal();
             return Jwts.builder().setIssuer("cuida-mais").setSubject(paciente.getUsername()).setIssuedAt(new Date())
@@ -36,7 +35,6 @@ public class TokenService {
         } else {
             return "";
         }
-
     }
 
     public boolean isTokenValid(String token) {
