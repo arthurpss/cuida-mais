@@ -67,14 +67,14 @@ public class Cuidador implements UserDetails {
     @Column(name = "celular", unique = true, length = 12)
     private String celular;
 
-    @Column(name = "telefone", unique = true, length = 12)
+    @Column(name = "telefone", length = 12)
     private String telefone;
 
-    @Column(name = "objetivo", nullable = false)
-    private String objetivo;
-
-    @Column(name = "resumo", nullable = false)
-    private String resumo;
+//    @Column(name = "objetivo", nullable = false)
+//    private String objetivo;
+//
+//    @Column(name = "resumo", nullable = false)
+//    private String resumo;
 
     @NotNull(message = "CEP não pode ser nulo")
     @Column(name = "cep", nullable = false, length = 8)

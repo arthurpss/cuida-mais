@@ -53,8 +53,6 @@ CREATE TABLE cuidador
     email           VARCHAR(150),
     celular         VARCHAR(12),
     telefone        VARCHAR(12),
-    objetivo        VARCHAR(255) NOT NULL,
-    resumo          VARCHAR(255) NOT NULL,
     cep             VARCHAR(8)   NOT NULL,
     uf              VARCHAR(2)   NOT NULL,
     cidade          VARCHAR(100) NOT NULL,
@@ -136,9 +134,6 @@ ALTER TABLE cuidador
 
 ALTER TABLE cuidador
     ADD CONSTRAINT uc_cuidador_email UNIQUE (email);
-
-ALTER TABLE cuidador
-    ADD CONSTRAINT uc_cuidador_telefone UNIQUE (telefone);
 
 ALTER TABLE paciente
     ADD CONSTRAINT uc_paciente_celular UNIQUE (celular);
