@@ -30,9 +30,9 @@ public class Cuidador implements UserDetails {
     @Column(name = "cpf", nullable = false, length = 11)
     private String cpf;
 
-//    @NotNull(message = "Data de cadastro não pode ser nula")
-//    @Column(name = "data_cadastro", nullable = false)
-//    private Date data_cadastro;
+    @NotNull(message = "Data de cadastro não pode ser nula")
+    @Column(name = "data_cadastro", nullable = false)
+    private Date data_cadastro;
 
     @NotNull(message = "Nome não pode ser nulo")
     @Column(name = "nome", nullable = false)

@@ -1,11 +1,17 @@
 package tcc.ceub.cuidamais.controllers;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import tcc.ceub.cuidamais.entities.Cuidador;
 import tcc.ceub.cuidamais.repositories.CuidadorRepository;
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 @RestController
@@ -14,9 +20,12 @@ public class CuidadorController {
 
     final
     CuidadorRepository cuidadorRepository;
+    final
+    PasswordEncoder passwordEncoder;
 
-    public CuidadorController(CuidadorRepository cuidadorRepository) {
+    public CuidadorController(CuidadorRepository cuidadorRepository, PasswordEncoder passwordEncoder) {
         this.cuidadorRepository = cuidadorRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping("/ativos")
@@ -31,6 +40,10 @@ public class CuidadorController {
 
     @PostMapping
     public Cuidador create(@RequestBody Cuidador cuidador) {
+        LocalDateTime ldt = LocalDateTime.now();
+        cuidador.setData_cadastro(Date.valueOf(DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH).format(ldt)));
+        cuidador.setData_nascimento(Date.valueOf(new SimpleDateFormat("yyyy-MM-dd").format(cuidador.getData_nascimento())));
+        cuidador.setSenha(passwordEncoder.encode(cuidador.getSenha()));
         return cuidadorRepository.save(cuidador);
     }
 

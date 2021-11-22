@@ -44,6 +44,7 @@ CREATE TABLE comorbidade
 CREATE TABLE cuidador
 (
     cpf             VARCHAR(11)  NOT NULL,
+    data_cadastro   date         NOT NULL,
     nome            VARCHAR(255) NOT NULL,
     data_nascimento date         NOT NULL,
     ativo           BOOLEAN      NOT NULL,
