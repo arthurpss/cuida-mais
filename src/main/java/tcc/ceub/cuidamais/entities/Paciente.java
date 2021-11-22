@@ -25,7 +25,7 @@ import java.util.List;
 public class Paciente implements UserDetails {
     @NotNull(message = "CPF não pode ser nulo")
     @Id
-    @Column(name = "cpf_cnpj", nullable = false, length = 11)
+    @Column(name = "cpf", nullable = false, length = 11)
     private String cpf;
 
     @NotNull(message = "Data de cadastro não pode ser nula")

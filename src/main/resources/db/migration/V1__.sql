@@ -99,7 +99,7 @@ CREATE TABLE formacao
 
 CREATE TABLE paciente
 (
-    cpf_cnpj        VARCHAR(11)  NOT NULL,
+    cpf             VARCHAR(11)  NOT NULL,
     data_cadastro   date         NOT NULL,
     nome            VARCHAR(255) NOT NULL,
     data_nascimento date         NOT NULL,
@@ -116,7 +116,7 @@ CREATE TABLE paciente
     logradouro      VARCHAR(255) NOT NULL,
     latitude        VARCHAR(255) NOT NULL,
     longitude       VARCHAR(255) NOT NULL,
-    CONSTRAINT pk_paciente PRIMARY KEY (cpf_cnpj)
+    CONSTRAINT pk_paciente PRIMARY KEY (cpf)
 );
 
 CREATE TABLE prescricao
@@ -145,7 +145,7 @@ ALTER TABLE paciente
     ADD CONSTRAINT uc_paciente_telefone UNIQUE (telefone);
 
 ALTER TABLE alergia
-    ADD CONSTRAINT FK_ALERGIA_ON_PACIENTE_CPF FOREIGN KEY (paciente_cpf) REFERENCES paciente (cpf_cnpj);
+    ADD CONSTRAINT FK_ALERGIA_ON_PACIENTE_CPF FOREIGN KEY (paciente_cpf) REFERENCES paciente (cpf);
 
 ALTER TABLE certificacao
     ADD CONSTRAINT FK_CERTIFICACAO_ON_CUIDADOR_CPF FOREIGN KEY (cuidador_cpf) REFERENCES cuidador (cpf);
@@ -154,13 +154,13 @@ ALTER TABLE combinacao
     ADD CONSTRAINT FK_COMBINACAO_ON_CUIDADOR_CPF FOREIGN KEY (cuidador_cpf) REFERENCES cuidador (cpf);
 
 ALTER TABLE combinacao
-    ADD CONSTRAINT FK_COMBINACAO_ON_PACIENTE_CPF FOREIGN KEY (paciente_cpf) REFERENCES paciente (cpf_cnpj);
+    ADD CONSTRAINT FK_COMBINACAO_ON_PACIENTE_CPF FOREIGN KEY (paciente_cpf) REFERENCES paciente (cpf);
 
 ALTER TABLE comorbidade
-    ADD CONSTRAINT FK_COMORBIDADE_ON_PACIENTE_CPF FOREIGN KEY (paciente_cpf) REFERENCES paciente (cpf_cnpj);
+    ADD CONSTRAINT FK_COMORBIDADE_ON_PACIENTE_CPF FOREIGN KEY (paciente_cpf) REFERENCES paciente (cpf);
 
 ALTER TABLE dispositivo
-    ADD CONSTRAINT FK_DISPOSITIVO_ON_PACIENTE_CPF FOREIGN KEY (paciente_cpf) REFERENCES paciente (cpf_cnpj);
+    ADD CONSTRAINT FK_DISPOSITIVO_ON_PACIENTE_CPF FOREIGN KEY (paciente_cpf) REFERENCES paciente (cpf);
 
 ALTER TABLE experiencia
     ADD CONSTRAINT FK_EXPERIENCIA_ON_CUIDADOR_CPF FOREIGN KEY (cuidador_cpf) REFERENCES cuidador (cpf);
@@ -169,4 +169,4 @@ ALTER TABLE formacao
     ADD CONSTRAINT FK_FORMACAO_ON_CUIDADOR_CPF FOREIGN KEY (cuidador_cpf) REFERENCES cuidador (cpf);
 
 ALTER TABLE prescricao
-    ADD CONSTRAINT FK_PRESCRICAO_ON_PACIENTE_CPF FOREIGN KEY (paciente_cpf) REFERENCES paciente (cpf_cnpj);
+    ADD CONSTRAINT FK_PRESCRICAO_ON_PACIENTE_CPF FOREIGN KEY (paciente_cpf) REFERENCES paciente (cpf);
