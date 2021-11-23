@@ -24,6 +24,16 @@ public class Alergia {
     private Integer grau;
 
     @ManyToOne
-    @JoinColumn(name = "paciente_cpf")
+    @JoinColumn(name = "paciente")
     private Paciente paciente;
+
+    public Alergia(String alergia, Integer grau, Paciente paciente) {
+        this.alergia = alergia;
+        this.grau = grau;
+        this.paciente = paciente;
+    }
+
+    public Alergia() {
+        
+    }
 }

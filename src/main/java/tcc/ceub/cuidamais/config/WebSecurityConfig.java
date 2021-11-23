@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.lang.Nullable;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -23,16 +24,18 @@ import tcc.ceub.cuidamais.repositories.PacienteRepository;
 import tcc.ceub.cuidamais.services.TokenService;
 import tcc.ceub.cuidamais.services.UsuarioService;
 
+import java.util.List;
+
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+    private static final List<HttpMethod> DEFAULT_METHODS = List.of(HttpMethod.GET, HttpMethod.HEAD, HttpMethod.POST, HttpMethod.PUT, HttpMethod.DELETE, HttpMethod.OPTIONS);
     final
     CuidadorRepository cuidadorRepository;
     final
     PacienteRepository pacienteRepository;
-
-    /*@Autowired
-    AutenticacaoService autenticacaoService;*/
+    @Nullable
+    private final List<HttpMethod> resolvedMethods = DEFAULT_METHODS;
     @Autowired
     UsuarioService usuarioService;
     @Autowired
@@ -80,7 +83,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", new CorsConfiguration().applyPermitDefaultValues());
+        CorsConfiguration config = new CorsConfiguration();
+        config.applyPermitDefaultValues();
+
+        assert this.resolvedMethods != null;
+        this.resolvedMethods.forEach(config::addAllowedMethod);
+        source.registerCorsConfiguration("/**", config);
+
         return source;
     }
 
