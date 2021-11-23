@@ -39,7 +39,6 @@ public class AlergiaController {
             Alergia alergia = new Alergia(alergiaDTO.getAlergia(), alergiaDTO.getGrau(), paciente);
             return alergiaRepository.save(alergia);
         });
-
     }
 
     @PutMapping("/{id}")

@@ -2,6 +2,7 @@ package tcc.ceub.cuidamais.controllers;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import tcc.ceub.cuidamais.dto.ComorbidadeDTO;
 import tcc.ceub.cuidamais.entities.Comorbidade;
 import tcc.ceub.cuidamais.repositories.ComorbidadeRepository;
 import tcc.ceub.cuidamais.repositories.PacienteRepository;
@@ -33,11 +34,10 @@ public class ComorbidadeController {
     }
 
     @PostMapping("/{cpf}")
-    public Optional<Comorbidade> create(@PathVariable String cpf, @RequestBody Comorbidade comorbidade) {
-        return pacienteRepository.findByCpf(cpf).map(paciente -> {
-            comorbidade.setPaciente(paciente);
-            return comorbidadeRepository.save(comorbidade);
-        });
+    public Optional<Comorbidade> create(@PathVariable String cpf, @RequestBody ComorbidadeDTO comorbidadeDTO) {
+        return pacienteRepository.findByCpf(cpf).map(paciente ->
+                comorbidadeRepository.save(new Comorbidade(comorbidadeDTO.getComorbidade(), comorbidadeDTO.getCuidados(), paciente))
+        );
     }
 
     @PutMapping("/{id}")

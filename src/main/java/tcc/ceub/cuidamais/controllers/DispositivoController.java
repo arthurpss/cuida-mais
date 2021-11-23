@@ -2,6 +2,7 @@ package tcc.ceub.cuidamais.controllers;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import tcc.ceub.cuidamais.dto.DispositivoDTO;
 import tcc.ceub.cuidamais.entities.Dispositivo;
 import tcc.ceub.cuidamais.repositories.DispositivoRepository;
 import tcc.ceub.cuidamais.repositories.PacienteRepository;
@@ -33,11 +34,8 @@ public class DispositivoController {
     }
 
     @PostMapping("/{cpf}")
-    public Optional<Dispositivo> create(@PathVariable String cpf, @RequestBody Dispositivo dispositivo) {
-        return pacienteRepository.findByCpf(cpf).map(paciente -> {
-            dispositivo.setPaciente(paciente);
-            return dispositivoRepository.save(dispositivo);
-        });
+    public Optional<Dispositivo> create(@PathVariable String cpf, @RequestBody DispositivoDTO dispositivoDTO) {
+        return pacienteRepository.findByCpf(cpf).map(paciente -> dispositivoRepository.save(new Dispositivo(dispositivoDTO.getDispositivo(), dispositivoDTO.getCuidados(), paciente)));
     }
 
     @PutMapping("/{id}")

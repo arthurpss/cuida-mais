@@ -26,4 +26,13 @@ public class Comorbidade {
     @ManyToOne
     @JoinColumn(name = "paciente_cpf")
     private Paciente paciente;
+
+    public Comorbidade(String comorbidade, String cuidados, Paciente paciente) {
+        this.comorbidade = comorbidade;
+        this.cuidados = cuidados;
+        this.paciente = paciente;
+    }
+
+    public Comorbidade() {
+    }
 }

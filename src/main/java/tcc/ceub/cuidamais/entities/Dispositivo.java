@@ -26,4 +26,14 @@ public class Dispositivo {
     @ManyToOne
     @JoinColumn(name = "paciente_cpf")
     private Paciente paciente;
+
+    public Dispositivo(String dispositivo, String cuidados, Paciente paciente) {
+        this.dispositivo = dispositivo;
+        this.cuidados = cuidados;
+        this.paciente = paciente;
+    }
+
+    public Dispositivo() {
+        
+    }
 }
