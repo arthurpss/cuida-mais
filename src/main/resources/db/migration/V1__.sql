@@ -53,7 +53,6 @@ CREATE TABLE cuidador
     sexo            VARCHAR(1)   NOT NULL,
     email           VARCHAR(150),
     celular         VARCHAR(12),
-    telefone        VARCHAR(12),
     cep             VARCHAR(8)   NOT NULL,
     uf              VARCHAR(2)   NOT NULL,
     cidade          VARCHAR(100) NOT NULL,
@@ -109,7 +108,6 @@ CREATE TABLE paciente
     sexo            VARCHAR(1)   NOT NULL,
     email           VARCHAR(150),
     celular         VARCHAR(12),
-    telefone        VARCHAR(12),
     observacoes     VARCHAR(255),
     cep             VARCHAR(8)   NOT NULL,
     uf              VARCHAR(2)   NOT NULL,
@@ -141,9 +139,6 @@ ALTER TABLE paciente
 
 ALTER TABLE paciente
     ADD CONSTRAINT uc_paciente_email UNIQUE (email);
-
-ALTER TABLE paciente
-    ADD CONSTRAINT uc_paciente_telefone UNIQUE (telefone);
 
 ALTER TABLE alergia
     ADD CONSTRAINT FK_ALERGIA_ON_PACIENTE FOREIGN KEY (paciente) REFERENCES paciente (cpf);

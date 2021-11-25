@@ -58,7 +58,7 @@ public class PacienteController {
                     paciente.setSexo(novoPaciente.getSexo());
                     paciente.setCelular(novoPaciente.getCelular());
                     paciente.setEmail(novoPaciente.getEmail());
-                    paciente.setTelefone(novoPaciente.getTelefone());
+//                    paciente.setTelefone(novoPaciente.getTelefone());
 //                    paciente.setResumo(novoPaciente.getResumo());
                     paciente.setObservacoes(novoPaciente.getObservacoes());
                     paciente.setCep(novoPaciente.getCep());

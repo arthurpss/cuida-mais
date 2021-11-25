@@ -60,8 +60,8 @@ public class Paciente implements UserDetails {
     @Column(name = "celular", unique = true, length = 12)
     private String celular;
 
-    @Column(name = "telefone", unique = true, length = 12)
-    private String telefone;
+//    @Column(name = "telefone", unique = true, length = 12)
+//    private String telefone;
 
 //    @Column(name = "resumo", nullable = false)
 //    private String resumo;

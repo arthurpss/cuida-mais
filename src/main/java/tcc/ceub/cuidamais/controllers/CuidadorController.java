@@ -59,7 +59,7 @@ public class CuidadorController {
                     cuidador.setSexo(novoCuidador.getSexo());
                     cuidador.setCelular(novoCuidador.getCelular());
                     cuidador.setEmail(novoCuidador.getEmail());
-                    cuidador.setTelefone(novoCuidador.getTelefone());
+//                    cuidador.setTelefone(novoCuidador.getTelefone());
 //                    cuidador.setResumo(novoCuidador.getResumo());
 //                    cuidador.setObjetivo(novoCuidador.getObjetivo());
                     cuidador.setCep(novoCuidador.getCep());

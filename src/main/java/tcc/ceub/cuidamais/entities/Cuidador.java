@@ -67,8 +67,8 @@ public class Cuidador implements UserDetails {
     @Column(name = "celular", unique = true, length = 12)
     private String celular;
 
-    @Column(name = "telefone", length = 12)
-    private String telefone;
+//    @Column(name = "telefone", length = 12)
+//    private String telefone;
 
 //    @Column(name = "objetivo", nullable = false)
 //    private String objetivo;
