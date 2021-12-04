@@ -41,7 +41,7 @@ public class PacienteController {
     @PostMapping
     public Paciente create(@RequestBody Paciente paciente) {
         LocalDateTime ldt = LocalDateTime.now();
-        paciente.setData_cadastro(Date.valueOf(DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH).format(ldt)));
+        paciente.setData_cadastro(Date.valueOf(DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.US).format(ldt)));
         paciente.setData_nascimento(Date.valueOf(new SimpleDateFormat("yyyy-MM-dd").format(paciente.getData_nascimento())));
         paciente.setSenha(passwordEncoder.encode(paciente.getSenha()));
         return pacienteRepository.save(paciente);

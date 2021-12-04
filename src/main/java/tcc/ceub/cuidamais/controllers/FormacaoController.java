@@ -6,7 +6,7 @@ import tcc.ceub.cuidamais.entities.Formacao;
 import tcc.ceub.cuidamais.repositories.CuidadorRepository;
 import tcc.ceub.cuidamais.repositories.FormacaoRepository;
 
-import java.util.List;
+import java.sql.Date;
 import java.util.Optional;
 
 @RestController
@@ -23,13 +23,13 @@ public class FormacaoController {
         this.cuidadorRepository = cuidadorRepository;
     }
 
-    @GetMapping("/{id}")
+    /*@GetMapping("/{id}")
     public Optional<Formacao> getFormacaoById(@PathVariable Long id) {
         return formacaoRepository.findById(id);
-    }
+    }*/
 
     @GetMapping("/{cpf}")
-    public List<Formacao> getFormacoesByCpf(@PathVariable String cpf) {
+    public Optional<Formacao> getFormacoesByCpf(@PathVariable String cpf) {
         return formacaoRepository.findByCuidadorCpf(cpf);
     }
 
@@ -47,7 +47,8 @@ public class FormacaoController {
                 .map(formacao -> {
                     formacao.setData_formacao(novaFormacao.getData_formacao());
                     formacao.setCurso(novaFormacao.getCurso());
-                    formacao.setData_inicio(novaFormacao.getData_inicio());
+                    formacao.setData_inicio(Date.valueOf(novaFormacao.getData_inicio().toString()));
+                    formacao.setData_formacao(Date.valueOf(novaFormacao.getData_formacao().toString()));
                     formacao.setEm_andamento(novaFormacao.getEm_andamento());
                     formacao.setInstituicao(novaFormacao.getInstituicao());
                     formacao.setPeriodo(novaFormacao.getPeriodo());

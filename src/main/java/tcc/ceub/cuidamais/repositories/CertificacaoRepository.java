@@ -4,9 +4,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import tcc.ceub.cuidamais.entities.Certificacao;
 
-import java.util.List;
+import java.util.Optional;
 
 public interface CertificacaoRepository extends JpaRepository<Certificacao, Long> {
     @Query("select c from Certificacao c where c.cuidador.cpf = ?1")
-    List<Certificacao> findByCuidadorCpf(String cpf);
+    Optional<Certificacao> findByCuidadorCpf(String cpf);
 }

@@ -2,11 +2,11 @@ package tcc.ceub.cuidamais.controllers;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import tcc.ceub.cuidamais.dto.CertificacaoDTO;
 import tcc.ceub.cuidamais.entities.Certificacao;
 import tcc.ceub.cuidamais.repositories.CertificacaoRepository;
 import tcc.ceub.cuidamais.repositories.CuidadorRepository;
 
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -23,14 +23,16 @@ public class CertificacaoController {
         this.cuidadorRepository = cuidadorRepository;
     }
 
-    @GetMapping("/{id}")
+    /*@GetMapping("/{id}")
     public Optional<Certificacao> getCertificacaoById(@PathVariable Long id) {
         return certificacaoRepository.findById(id);
-    }
+    }*/
 
     @GetMapping("/{cpf}")
-    public List<Certificacao> getCertificacoesByCpf(@PathVariable String cpf) {
-        return certificacaoRepository.findByCuidadorCpf(cpf);
+    public Optional<CertificacaoDTO> getCertificacoesByCpf(@PathVariable String cpf) {
+        return certificacaoRepository.findByCuidadorCpf(cpf)
+                .map(certificacao -> new CertificacaoDTO(certificacao.getId(), certificacao.getInstituicao(), certificacao.getTitulo(), certificacao.getCarga_horaria(), certificacao.getCuidador().getCpf()));
+
     }
 
     @PostMapping("/{cpf}")

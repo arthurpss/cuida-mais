@@ -6,7 +6,7 @@ import tcc.ceub.cuidamais.entities.Experiencia;
 import tcc.ceub.cuidamais.repositories.CuidadorRepository;
 import tcc.ceub.cuidamais.repositories.ExperienciaRepository;
 
-import java.util.List;
+import java.sql.Date;
 import java.util.Optional;
 
 @RestController
@@ -24,18 +24,20 @@ public class ExperienciaController {
     }
 
     @GetMapping("/{cpf}")
-    public List<Experiencia> getExperienciasByCpf(@PathVariable String cpf) {
+    public Optional<Experiencia> getExperienciasByCpf(@PathVariable String cpf) {
         return experienciaRepository.findByCuidadorCpf(cpf);
     }
 
-    @GetMapping("/{id}")
+    /*@GetMapping("/{id}")
     public Optional<Experiencia> getExperienciaById(@PathVariable Long id) {
         return experienciaRepository.findById(id);
-    }
+    }*/
 
     @PostMapping("/{cpf}")
     public Optional<Experiencia> create(@PathVariable String cpf, @RequestBody Experiencia experiencia) {
         return cuidadorRepository.findByCpf(cpf).map(cuidador -> {
+            experiencia.setData_inicio(Date.valueOf(experiencia.getData_inicio().toString()));
+            experiencia.setData_fim(Date.valueOf(experiencia.getData_fim().toString()));
             experiencia.setCuidador(cuidador);
             return experienciaRepository.save(experiencia);
         });
@@ -47,8 +49,8 @@ public class ExperienciaController {
                 .map(experiencia -> {
                     experiencia.setAtual(novaExperiencia.getAtual());
                     experiencia.setCargo(novaExperiencia.getCargo());
-                    experiencia.setData_inicio(novaExperiencia.getData_inicio());
-                    experiencia.setData_fim(novaExperiencia.getData_fim());
+                    experiencia.setData_inicio(Date.valueOf(novaExperiencia.getData_inicio().toString()));
+                    experiencia.setData_fim(Date.valueOf(novaExperiencia.getData_fim().toString()));
                     experiencia.setDescricao(novaExperiencia.getDescricao());
                     experiencia.setEmpresa(novaExperiencia.getEmpresa());
                     Experiencia experienciaAtualizada = experienciaRepository.save(experiencia);
