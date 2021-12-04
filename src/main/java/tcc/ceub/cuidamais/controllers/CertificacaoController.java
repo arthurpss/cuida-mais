@@ -31,8 +31,10 @@ public class CertificacaoController {
     @GetMapping("/{cpf}")
     public Optional<CertificacaoDTO> getCertificacoesByCpf(@PathVariable String cpf) {
         return certificacaoRepository.findByCuidadorCpf(cpf)
-                .map(certificacao -> new CertificacaoDTO(certificacao.getId(), certificacao.getInstituicao(), certificacao.getTitulo(), certificacao.getCarga_horaria(), certificacao.getCuidador().getCpf()));
-
+                .map(certificacao ->
+                        new CertificacaoDTO(certificacao.getId(), certificacao.getInstituicao(),
+                                certificacao.getTitulo(), certificacao.getCarga_horaria(),
+                                certificacao.getCuidador().getCpf()));
     }
 
     @PostMapping("/{cpf}")

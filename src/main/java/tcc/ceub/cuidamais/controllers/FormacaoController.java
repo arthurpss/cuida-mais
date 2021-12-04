@@ -2,6 +2,7 @@ package tcc.ceub.cuidamais.controllers;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import tcc.ceub.cuidamais.dto.FormacaoDTO;
 import tcc.ceub.cuidamais.entities.Formacao;
 import tcc.ceub.cuidamais.repositories.CuidadorRepository;
 import tcc.ceub.cuidamais.repositories.FormacaoRepository;
@@ -29,8 +30,11 @@ public class FormacaoController {
     }*/
 
     @GetMapping("/{cpf}")
-    public Optional<Formacao> getFormacoesByCpf(@PathVariable String cpf) {
-        return formacaoRepository.findByCuidadorCpf(cpf);
+    public Optional<FormacaoDTO> getFormacoesByCpf(@PathVariable String cpf) {
+        return formacaoRepository.findByCuidadorCpf(cpf)
+                .map(formacao -> new FormacaoDTO(formacao.getId(), formacao.getInstituicao(), formacao.getCurso(),
+                        formacao.getPeriodo(), formacao.getData_inicio(), formacao.getData_formacao(),
+                        formacao.getEm_andamento(), formacao.getCuidador().getCpf()));
     }
 
     @PostMapping("/{cpf}")

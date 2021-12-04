@@ -2,6 +2,7 @@ package tcc.ceub.cuidamais.controllers;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import tcc.ceub.cuidamais.dto.ExperienciaDTO;
 import tcc.ceub.cuidamais.entities.Experiencia;
 import tcc.ceub.cuidamais.repositories.CuidadorRepository;
 import tcc.ceub.cuidamais.repositories.ExperienciaRepository;
@@ -24,8 +25,11 @@ public class ExperienciaController {
     }
 
     @GetMapping("/{cpf}")
-    public Optional<Experiencia> getExperienciasByCpf(@PathVariable String cpf) {
-        return experienciaRepository.findByCuidadorCpf(cpf);
+    public Optional<ExperienciaDTO> getExperienciasByCpf(@PathVariable String cpf) {
+        return experienciaRepository.findByCuidadorCpf(cpf)
+                .map(experiencia -> new ExperienciaDTO(experiencia.getId(), experiencia.getEmpresa(),
+                        experiencia.getCargo(), experiencia.getDescricao(), experiencia.getData_inicio(),
+                        experiencia.getData_fim(), experiencia.getAtual(), experiencia.getCuidador().getCpf()));
     }
 
     /*@GetMapping("/{id}")
