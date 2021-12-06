@@ -7,7 +7,6 @@ import tcc.ceub.cuidamais.entities.Comorbidade;
 import tcc.ceub.cuidamais.repositories.ComorbidadeRepository;
 import tcc.ceub.cuidamais.repositories.PacienteRepository;
 
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -24,8 +23,10 @@ public class ComorbidadeController {
     }
 
     @GetMapping("/{cpf}")
-    public List<Comorbidade> getComorbidadesByCpf(@PathVariable String cpf) {
-        return comorbidadeRepository.findByPacienteCpf(cpf);
+    public Optional<ComorbidadeDTO> getComorbidadesByCpf(@PathVariable String cpf) {
+        return comorbidadeRepository.findByPacienteCpf(cpf)
+                .map(comorbidade -> new ComorbidadeDTO(comorbidade.getId(), comorbidade.getComorbidade(),
+                        comorbidade.getCuidados(), comorbidade.getPaciente().getCpf()));
     }
 
     @GetMapping("/{id}")

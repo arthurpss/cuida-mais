@@ -4,11 +4,15 @@ import lombok.Data;
 
 @Data
 public class ComorbidadeDTO {
+    private Long id;
     private String comorbidade;
     private String cuidados;
+    private String paciente_cpf;
 
-    public void dispositivoDTO(String dispositivo, String cuidados) {
-        this.comorbidade = dispositivo;
+    public ComorbidadeDTO(Long id, String comorbidade, String cuidados, String paciente_cpf) {
+        this.id = id;
+        this.comorbidade = comorbidade;
         this.cuidados = cuidados;
+        this.paciente_cpf = paciente_cpf;
     }
 }

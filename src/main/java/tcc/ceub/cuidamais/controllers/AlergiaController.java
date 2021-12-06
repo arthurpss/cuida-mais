@@ -7,7 +7,6 @@ import tcc.ceub.cuidamais.entities.Alergia;
 import tcc.ceub.cuidamais.repositories.AlergiaRepository;
 import tcc.ceub.cuidamais.repositories.PacienteRepository;
 
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -23,9 +22,11 @@ public class AlergiaController {
         this.pacienteRepository = pacienteRepository;
     }
 
-    @GetMapping("/paciente/{cpf}")
-    public List<Alergia> getAlergiasByCpf(@PathVariable String cpf) {
-        return alergiaRepository.findByPacienteCpf(cpf);
+    @GetMapping("/{cpf}")
+    public Optional<AlergiaDTO> getAlergiaByCpf(@PathVariable String cpf) {
+        return alergiaRepository.findByPacienteCpf(cpf)
+                .map(alergia -> new AlergiaDTO(alergia.getId(), alergia.getAlergia(),
+                        alergia.getGrau(), alergia.getPaciente().getCpf()));
     }
 
     @GetMapping("/{id}")

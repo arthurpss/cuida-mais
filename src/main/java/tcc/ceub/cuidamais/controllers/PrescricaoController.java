@@ -2,11 +2,11 @@ package tcc.ceub.cuidamais.controllers;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import tcc.ceub.cuidamais.dto.PrescricaoDTO;
 import tcc.ceub.cuidamais.entities.Prescricao;
 import tcc.ceub.cuidamais.repositories.PacienteRepository;
 import tcc.ceub.cuidamais.repositories.PrescricaoRepository;
 
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -28,8 +28,10 @@ public class PrescricaoController {
     }
 
     @GetMapping("/{cpf}")
-    public List<Prescricao> getPrescricoesByCpf(@PathVariable String cpf) {
-        return prescricaoRepository.findByPacienteCpf(cpf);
+    public Optional<PrescricaoDTO> getPrescricoesByCpf(@PathVariable String cpf) {
+        return prescricaoRepository.findByPacienteCpf(cpf)
+                .map(prescricao -> new PrescricaoDTO(prescricao.getId(), prescricao.getRemedio(),
+                        prescricao.getHorarios(), prescricao.getVia(), prescricao.getPaciente().getCpf()));
     }
 
     @PostMapping("/{cpf}")

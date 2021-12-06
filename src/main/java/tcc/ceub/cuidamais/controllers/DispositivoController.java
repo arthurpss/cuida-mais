@@ -7,7 +7,6 @@ import tcc.ceub.cuidamais.entities.Dispositivo;
 import tcc.ceub.cuidamais.repositories.DispositivoRepository;
 import tcc.ceub.cuidamais.repositories.PacienteRepository;
 
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -24,8 +23,10 @@ public class DispositivoController {
     }
 
     @GetMapping("/{cpf}")
-    public List<Dispositivo> getDispositivosByCpf(@PathVariable String cpf) {
-        return dispositivoRepository.findByPacienteCpf(cpf);
+    public Optional<DispositivoDTO> getDispositivosByCpf(@PathVariable String cpf) {
+        return dispositivoRepository.findByPacienteCpf(cpf)
+                .map(dispositivo -> new DispositivoDTO(dispositivo.getId(), dispositivo.getDispositivo(),
+                        dispositivo.getCuidados(), dispositivo.getPaciente().getCpf()));
     }
 
     @GetMapping("/{id}")
