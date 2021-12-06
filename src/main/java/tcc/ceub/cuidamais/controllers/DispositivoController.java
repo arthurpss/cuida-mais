@@ -29,10 +29,10 @@ public class DispositivoController {
                         dispositivo.getCuidados(), dispositivo.getPaciente().getCpf()));
     }
 
-    @GetMapping("/{id}")
-    public Optional<Dispositivo> getDispositivoById(@PathVariable Long id) {
-        return dispositivoRepository.findById(id);
-    }
+    // @GetMapping("/{id}")
+    // public Optional<Dispositivo> getDispositivoById(@PathVariable Long id) {
+    //     return dispositivoRepository.findById(id);
+    // }
 
     @PostMapping("/{cpf}")
     public Optional<Dispositivo> create(@PathVariable String cpf, @RequestBody DispositivoDTO dispositivoDTO) {

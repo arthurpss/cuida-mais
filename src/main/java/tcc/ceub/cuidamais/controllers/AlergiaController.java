@@ -29,10 +29,10 @@ public class AlergiaController {
                         alergia.getGrau(), alergia.getPaciente().getCpf()));
     }
 
-    @GetMapping("/{id}")
-    public Optional<Alergia> getAlergiaById(@PathVariable Long id) {
-        return alergiaRepository.findById(id);
-    }
+    // @GetMapping("/{id}")
+    // public Optional<Alergia> getAlergiaById(@PathVariable Long id) {
+    //     return alergiaRepository.findById(id);
+    // }
 
     @PostMapping("/{cpf}")
     public Optional<Alergia> create(@PathVariable String cpf, @RequestBody AlergiaDTO alergiaDTO) {

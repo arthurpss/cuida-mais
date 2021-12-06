@@ -29,10 +29,10 @@ public class ComorbidadeController {
                         comorbidade.getCuidados(), comorbidade.getPaciente().getCpf()));
     }
 
-    @GetMapping("/{id}")
-    public Optional<Comorbidade> getComorbidadeById(@PathVariable Long id) {
-        return comorbidadeRepository.findById(id);
-    }
+    // @GetMapping("/{id}")
+    // public Optional<Comorbidade> getComorbidadeById(@PathVariable Long id) {
+    //     return comorbidadeRepository.findById(id);
+    // }
 
     @PostMapping("/{cpf}")
     public Optional<Comorbidade> create(@PathVariable String cpf, @RequestBody ComorbidadeDTO comorbidadeDTO) {

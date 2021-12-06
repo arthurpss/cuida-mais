@@ -22,10 +22,10 @@ public class PrescricaoController {
         this.pacienteRepository = pacienteRepository;
     }
 
-    @GetMapping("/{id}")
-    public Optional<Prescricao> getPrescricaoById(@PathVariable Long id) {
-        return prescricaoRepository.findById(id);
-    }
+    // @GetMapping("/{id}")
+    // public Optional<Prescricao> getPrescricaoById(@PathVariable Long id) {
+    //     return prescricaoRepository.findById(id);
+    // }
 
     @GetMapping("/{cpf}")
     public Optional<PrescricaoDTO> getPrescricoesByCpf(@PathVariable String cpf) {
