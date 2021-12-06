@@ -29,11 +29,10 @@ import java.util.List;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    private static final List<HttpMethod> DEFAULT_METHODS = List.of(HttpMethod.GET, HttpMethod.HEAD, HttpMethod.POST, HttpMethod.PUT, HttpMethod.DELETE, HttpMethod.OPTIONS);
-    final
-    CuidadorRepository cuidadorRepository;
-    final
-    PacienteRepository pacienteRepository;
+    private static final List<HttpMethod> DEFAULT_METHODS = List.of(HttpMethod.GET, HttpMethod.HEAD, HttpMethod.POST,
+            HttpMethod.PUT, HttpMethod.DELETE, HttpMethod.OPTIONS);
+    final CuidadorRepository cuidadorRepository;
+    final PacienteRepository pacienteRepository;
     @Nullable
     private final List<HttpMethod> resolvedMethods = DEFAULT_METHODS;
     @Autowired
@@ -61,7 +60,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/auth", "/paciente", "/cuidador").permitAll()
-                .antMatchers(HttpMethod.GET, "/certificacao/**", "/formacao/**", "/experiencia/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/certificacao/**", "/formacao/**", "/experiencia/**", "/alergia/**",
+                        "/comorbidade/**", "/dispositivo/**", "/prescricao/**")
+                .permitAll()
                 .antMatchers(// -- Swagger UI v2
                         "/v2/api-docs",
                         "/swagger-resources",
@@ -73,12 +74,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         // -- Swagger UI v3 (OpenAPI)
                         "/v3/api-docs/**",
                         "/swagger-ui/**"
-                        // other public endpoints of your API may be appended to this array)
+                // other public endpoints of your API may be appended to this array)
                 ).permitAll()
                 .anyRequest().authenticated()
                 .and().csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and().addFilterBefore(new TokenAuthenticationFilter(tokenService, pacienteRepository, cuidadorRepository), UsernamePasswordAuthenticationFilter.class);
+                .and()
+                .addFilterBefore(new TokenAuthenticationFilter(tokenService, pacienteRepository, cuidadorRepository),
+                        UsernamePasswordAuthenticationFilter.class);
     }
 
     @Bean
@@ -98,7 +101,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
     }
 
-    //Configuration for static resources
+    // Configuration for static resources
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
