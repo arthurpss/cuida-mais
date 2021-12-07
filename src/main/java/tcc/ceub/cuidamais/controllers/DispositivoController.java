@@ -40,7 +40,7 @@ public class DispositivoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity update(@PathVariable Long id, @RequestBody Dispositivo novoDispositivo) {
+    public ResponseEntity update(@PathVariable Long id, @RequestBody DispositivoDTO novoDispositivo) {
         return dispositivoRepository.findById(id)
                 .map(dispositivo -> {
                     dispositivo.setDispositivo(novoDispositivo.getDispositivo());

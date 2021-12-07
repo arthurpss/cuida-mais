@@ -29,4 +29,15 @@ public class Prescricao {
     @ManyToOne
     @JoinColumn(name = "paciente_cpf")
     private Paciente paciente;
+
+    public Prescricao(String remedio, String horarios, String via, Paciente paciente) {
+        this.remedio = remedio;
+        this.horarios = horarios;
+        this.via = via;
+        this.paciente = paciente;
+    }
+
+    public Prescricao() {
+
+    }
 }

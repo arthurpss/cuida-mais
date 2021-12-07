@@ -43,7 +43,7 @@ public class AlergiaController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity update(@PathVariable Long id, @RequestBody Alergia novaAlergia) {
+    public ResponseEntity update(@PathVariable Long id, @RequestBody AlergiaDTO novaAlergia) {
         return alergiaRepository.findById(id)
                 .map(alergia -> {
                     alergia.setAlergia(novaAlergia.getAlergia());

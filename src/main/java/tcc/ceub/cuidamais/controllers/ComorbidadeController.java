@@ -42,7 +42,7 @@ public class ComorbidadeController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity update(@PathVariable Long id, @RequestBody Comorbidade novaComorbidade) {
+    public ResponseEntity update(@PathVariable Long id, @RequestBody ComorbidadeDTO novaComorbidade) {
         return comorbidadeRepository.findById(id)
                 .map(comorbidade -> {
                     comorbidade.setComorbidade(novaComorbidade.getComorbidade());

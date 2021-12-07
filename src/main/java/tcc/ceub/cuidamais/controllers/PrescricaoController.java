@@ -35,15 +35,14 @@ public class PrescricaoController {
     }
 
     @PostMapping("/{cpf}")
-    public Optional<Prescricao> create(@PathVariable String cpf, @RequestBody Prescricao prescricao) {
+    public Optional<Prescricao> create(@PathVariable String cpf, @RequestBody PrescricaoDTO prescricao) {
         return pacienteRepository.findByCpf(cpf).map(paciente -> {
-            prescricao.setPaciente(paciente);
-            return prescricaoRepository.save(prescricao);
+            return prescricaoRepository.save(new Prescricao(prescricao.getRemedio(), prescricao.getHorarios(), prescricao.getVia(), paciente));
         });
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity update(@PathVariable Long id, @RequestBody Prescricao novaPrescricao) {
+    public ResponseEntity update(@PathVariable Long id, @RequestBody PrescricaoDTO novaPrescricao) {
         return prescricaoRepository.findById(id)
                 .map(prescricao -> {
                     prescricao.setHorarios(novaPrescricao.getHorarios());

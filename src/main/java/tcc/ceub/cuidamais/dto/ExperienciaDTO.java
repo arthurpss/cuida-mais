@@ -15,7 +15,6 @@ public class ExperienciaDTO {
     private Boolean atual;
     private String cuidador_cpf;
 
-
     public ExperienciaDTO(Long id, String empresa, String cargo, String descricao, Date data_inicio, Date data_fim, Boolean atual, String cuidador_cpf) {
         this.id = id;
         this.empresa = empresa;
